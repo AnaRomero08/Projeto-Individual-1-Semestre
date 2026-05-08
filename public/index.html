@@ -1,82 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AquaTech | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
+    <title>Blog Cat's | Home</title>
+    <script src="./js/sessao.js" defer></script>
     <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-        <span class="version">v1.0.0</span>
-      </div>
-    </div>
-  </body>
 
+    <div class="header">
+        <div class="container">
+            <div class="div-logo">
+                <img src="./assets/imgs/logo_sem_fundo.png" alt="Logo Patinha" class="logo-img">
+                
+            </div>
+            <ul class="navbar">
+                <li><a href="#" class="nav-link ativo">Home</a></li>
+                <li><a href="#curiosidades" class="nav-link">Curiosidades</a></li>
+                <li><a href="#adocao" class="nav-link">Adoção</a></li>
+                <li><a href="dashboard/cards.html">Dashboard</a></li>
+                <li class="separador">|</li>
+                <li class="btn-grupo-auth">
+                    <a href="login.html" class="auth-link">Entrar</a>
+                    <span class="auth-divisor">|</span>
+                    <a href="cadastro.html" class="auth-link">Cadastrar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="banner">
+        <div class="container main-content">
+            <div class="hero-texto">
+                <p>Mais que pets, <br><span>companheiros de vida...</span></p>
+                <h4>"Acreditamos que todo gato merece um lar e todo humano merece o carinho de um felino. Aqui, você aprende, cuida e monitora a felicidade do seu companheiro."</h4>
+                <button class="btn-hero" onclick="window.location.href='cadastro.html'">Começar nossa jornada</button>
+            </div>
+            <div class="hero-img-container">
+                <div class="circulo-amarelo"></div>
+                <img src="./assets/imgs/imagem_home.jpg" alt="Gatinho Principal" class="img-gatinho-hero">
+                <div class="bolinha-gatinho-pequeno">
+                    <img src="./assets/imgs/Design sem nome.png" alt="Gatinho pequeno" class="img-gatinho-pequeno">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="curiosidades" class="section-curiosidades">
+        <div class="container-curiosidades">
+            <h2 class="titulo-sessao">🐾 🐾 Curiosidades Interessantes 🐾</h2>
+
+            <div class="card-curiosidade">
+                <img src="./assets/imgs/istockphoto-1137985887-612x612.jpg" alt="Gato ronronando">
+                <div class="texto-card">
+                    <h3>Muito mais que um som: A frequência da cura.</h3>
+                    <p>Você sabia que o ronronar de um gato vibra entre 25 e 150 Hertz? Estudos mostram que essa frequência sonora pode auxiliar na regeneração de tecidos humanos, reduzir a pressão arterial e diminuir o risco de ataques cardíacos em até 40%. Ter um gato não é apenas companhia, é um investimento na sua saúde.</p>
+                </div>
+            </div>
+            
+            <div class="card-curiosidade">
+                <img src="./assets/imgs/curiosidades2.webp" alt="Gato piscando devagar">
+                <div class="texto-card">
+                    <h3>O 'beijo' do gatinho</h3>
+                    <p>Já percebeu seu gato olhando para você e piscando bem devagar? Na psicologia felina, isso é conhecido como 'Slow Blink'. É a maior prova de confiança que eles podem dar. Tente retribuir o gesto: pisque devagar para o seu amigo e veja como a conexão entre vocês aumenta instantaneamente.</p>
+                </div>
+            </div>
+
+            
+            <div class="card-curiosidade">
+                <img src="./assets/imgs/curiosidades1.png" alt="Gato e pessoa">
+                <div class="texto-card">
+                    <h3>Amor com consentimento</h3>
+                    <p>Diferente dos cães, os gatos valorizam o espaço pessoal. Eles demonstram afeto de formas sutis: encostando a cabeça em você (troca de feromônios), seguindo você pelos cômodos ou 'amassando pãozinho' no seu colo. Entender esses sinais é a chave para uma amizade profunda e respeitosa.</p>
+                </div>
+            </div>
+
+            <div class="card-curiosidade card-destaque">
+                <img src="./assets/imgs/curiosidades3.webp" alt="Pessoa com gato">
+                <div class="texto-card">
+                    <h3>Antidoto contra a solidão</h3>
+                    <p>Viver com um gato estimula a produção de ocitocina (o hormônio do amor) e serotonina no cérebro humano. Para quem sofre de ansiedade ou depressão, ter uma rotina de cuidados com um pet traz propósito e um senso de segurança emocional incomparável.</p>
+                </div>
+            </div>
+
+            <div class="cta-pesquisa">
+                <p>A ciência prova, mas e você? O quanto seu gatinho muda o seu humor?<br>
+                <strong>Participe da nossa pesquisa abaixo!</strong></p>
+            </div>
+
+            <div class="escala-felicidade">
+                <div class="escala-titulo">
+                    <h3>ESCALA DA FELICIDADE 🐾</h3>
+                </div>
+                <div class="escala-corpo">
+                    <p>Em uma escala de 1 a 5, qual o seu nível de felicidade depois de brincar com seu gatinho?</p>
+                    <div class="patinhas-container">
+                        <label class="patinha-label">
+                            <input type="radio" name="felicidade" value="1">
+                            <span class="patinha-icone">🐾</span>
+                            <span class="patinha-num">1</span>
+                        </label>
+                        <label class="patinha-label">
+                            <input type="radio" name="felicidade" value="2">
+                            <span class="patinha-icone">🐾</span>
+                            <span class="patinha-num">2</span>
+                        </label>
+                        <label class="patinha-label">
+                            <input type="radio" name="felicidade" value="3">
+                            <span class="patinha-icone">🐾</span>
+                            <span class="patinha-num">3</span>
+                        </label>
+                        <label class="patinha-label">
+                            <input type="radio" name="felicidade" value="4">
+                            <span class="patinha-icone">🐾</span>
+                            <span class="patinha-num">4</span>
+                        </label>
+                        <label class="patinha-label">
+                            <input type="radio" name="felicidade" value="5">
+                            <span class="patinha-icone">🐾</span>
+                            <span class="patinha-num">5</span>
+                        </label>
+                    </div>
+                    <button class="btn-enviar">Enviar</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== ADOÇÃO ===== -->
+    <section id="adocao" class="section-adocao">
+
+        <!-- Box título destaque -->
+        <div class="container">
+            <div class="box-titulo-adocao">
+                <span class="patinha-deco">🐾</span>
+                <span class="patinha-deco">🐾</span>
+                <h2><em>Adotar</em> é transformar um destino.</h2>
+                <p class="subtitulo-adocao">Existem milhares de ronrons esperando por um lar. O próximo pode ser o seu!</p>
+            </div>
+        </div>
+
+        <!-- Texto + Imagem -->
+        <div class="container adocao-flex">
+            <div class="texto-adocao">
+                <p class="desc-adocao">Ao escolher a adoção, você não está apenas ganhando um amigo; você está combatendo o abandono e abrindo espaço em abrigos para que outros animais possam ser salvos. Gatos de abrigo, muitas vezes, carregam uma gratidão silenciosa que se transforma no vínculo mais forte que você já experimentou. Adotar é um ato de resistência contra o descaso e um passo gigante em direção a uma sociedade mais empática.</p>
+            </div>
+            <div class="img-adocao">
+                <img src="./assets/imgs/img_adocao.jpg" alt="Gatos para adoção">
+            </div>
+        </div>
+
+        <!-- Box Pesquisa -->
+        <div class="container">
+            <div class="box-pesquisa">
+                <h3>Qual sua relação atual com a adoção?</h3>
+                <div class="opcoes-pesquisa">
+                    <label><input type="radio" name="adocao" value="ja_adotei"> Já adotei e recomendo!</label>
+                    <label><input type="radio" name="adocao" value="procurando"> Estou procurando meu novo amigo</label>
+                    <label><input type="radio" name="adocao" value="decidindo"> Ainda estou me decidindo</label>
+                </div>
+                <button class="btn-enviar">Enviar</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="./assets/imgs/logo_sem_fundo.png" alt="Logo Patinha" class="logo-img">
+                <h1 class="titulo">Blog Cat's</h1>
+                <p class="footer-slogan">Amor que faz o coração ronronar.<br>Adote um gatinho!</p>
+            </div>
+            <div class="footer-social">
+                <p><strong>Ong's de adoção:</strong></p>
+                <ul>
+                    <li>
+                        <span class="icone-ig">📷</span>
+                        <a href="#">@cmiadoselatidos</a>
+                    </li>
+                    <li>
+                        <span class="icone-ig">📷</span>
+                        <a href="#">@resgatinhosdesaofrancisco</a>
+                    </li>
+                    <li>
+                        <span class="icone-ig">📷</span>
+                        <a href="#">@miadosquesalvam</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-gato">
+                <img src="./assets/imgs/img_footer.webp" alt="Gatinho no footer" class="img-footer-gato">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script: destaca o item ativo da navbar conforme o scroll -->
+    <script>
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Seções monitoradas
+        const secoes = [
+            { id: 'curiosidades', link: navLinks[1] },
+            { id: 'adocao',       link: navLinks[2] },
+        ];
+
+        function atualizarNavAtivo() {
+            const scrollY = window.scrollY;
+            let ativoAtual = navLinks[0]; // padrão: Home
+
+            secoes.forEach(({ id, link }) => {
+                const secao = document.getElementById(id);
+                if (secao && scrollY >= secao.offsetTop - 120) {
+                    ativoAtual = link;
+                }
+            });
+
+            navLinks.forEach(link => link.classList.remove('ativo'));
+            ativoAtual.classList.add('ativo');
+        }
+
+        window.addEventListener('scroll', atualizarNavAtivo);
+        atualizarNavAtivo(); // executa ao carregar a página
+    </script>
+
+</body>
 </html>
