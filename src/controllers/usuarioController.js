@@ -48,6 +48,7 @@ function cadastrar(req, res) {
     var telefone = req.body.telefoneServer;
     var temPet = req.body.temPetServer;
 
+
     // Dados do Pet
     var nomePet = req.body.nomePetServer;
     var idadePet = req.body.idadePetServer;
@@ -66,6 +67,7 @@ function cadastrar(req, res) {
     } else {
         // 1. Cadastra o Usuário primeiro
         usuarioModel.cadastrar(nome, email, senha, telefone, temPet)
+
             .then(
                 function (resultado) {
                     // Se o usuário marcou que tem pet (1), cadastramos o pet usando o ID recém gerado
