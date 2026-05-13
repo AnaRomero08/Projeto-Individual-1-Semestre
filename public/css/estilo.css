@@ -113,6 +113,26 @@ body {
     border-radius: 25px;
     padding: 8px 20px;
     gap: 10px;
+    color: var(--branco) !important; /* Força o texto dentro da pílula a ser branco */
+}
+
+/* Garante que os links dentro da pílula também fiquem brancos e sem sublinhado */
+.btn-grupo-auth a {
+    color: var(--branco) !important;
+}
+
+/* Estilo para a frase Olá, Usuário */
+.texto-logado {
+    color: #5D4037; /* Um tom de marrom escuro/café */
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+#li_logado {
+    display: none; /* O JS vai mudar para flex ou block */
+    align-items: center;
+    list-style: none;
 }
 
 /* Botão Cadastrar-se */
@@ -820,4 +840,78 @@ body {
     text-align: center;
     font-size: 16px;
     font-weight: 500;
+    
+}
+
+
+/* PÁGINA DE COMENTÁRIOS */
+.section-comentarios {
+    padding: 60px 0;
+    background-color: #fcfcfc;
+}
+
+.box-comentarios {
+    background-color: #fbe9ef; /* Rosa clarinho do protótipo */
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.box-comentarios h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+.comentario-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.avatar-comment {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.texto-comentario {
+    background-color: #f4bacd; /* Tom de rosa mais forte para o balão */
+    padding: 15px 25px;
+    border-radius: 30px;
+    flex: 1;
+}
+
+.publicar-comentario {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.publicar-comentario textarea {
+    flex: 1;
+    height: 80px;
+    border-radius: 15px;
+    border: none;
+    padding: 15px;
+    font-family: 'Poppins', sans-serif;
+    resize: none;
+}
+
+.btn-enviar-comentario {
+    background-color: #e36a94;
+    color: white;
+    border: none;
+    padding: 0 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-enviar-comentario:hover {
+    background-color: #c54b75;
 }

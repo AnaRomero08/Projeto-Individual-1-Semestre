@@ -19,92 +19,71 @@
                     <img src="./assets/imgs/logo_sem_fundo.png" alt="Logo">
                 </div>
                 <h2>Entre com sua conta!</h2>
-
                 <div class="formulario">
                     <div class="campo">
                         <span>Email:</span>
                         <input type="email" id="ipt_email" placeholder="email@email.com">
                     </div>
-
                     <div class="campo">
                         <span>Senha:</span>
-
                         <input type="password" id="ipt_senha" placeholder="************">
                     </div>
-
                 </div>
                 <button class="btn-login" onclick="entrar()">
                     Entrar
                 </button>
                 <div id="mensagem"></div>
-
+                <p id="link_cadastro">Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
             </div>
-
         </div>
-
     </div>
-
+    </div>
 </body>
 
 </html>
-
 <script>
-
     function entrar() {
-
         let email = ipt_email.value;
         let senha = ipt_senha.value;
 
         mensagem.innerHTML = "";
 
-        /* VERIFICAR CAMPOS VAZIOS */
-
         if (email == "" || senha == "") {
+            mensagem.innerHTML = `<span style="color:red;">Preencha todos os campos!</span>`;
+        } else if (!email.includes("@") || !email.includes(".")) {
+            mensagem.innerHTML = `<span style="color:red;">Digite um email válido!</span>`;
+        } else if (senha.length < 6) {
+            mensagem.innerHTML = `<span style="color:red;">A senha deve ter pelo menos 6 caracteres!</span>`;
+        } else {
+            // Se as validações passarem, fazemos a conexão com o banco
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    emailServer: email,
+                    senhaServer: senha
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        // SALVANDO NA SESSÃO
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.ID_USUARIO = json.id;
 
-            mensagem.innerHTML = `
-                <span style="color:red;">
-                    Preencha todos os campos!
-                </span>
-            `;
+                        mensagem.innerHTML = `<span style="color:green;">Login realizado com sucesso! Redirecionando...</span>`;
 
+                        setTimeout(function () {
+                            window.location = "index.html";
+                        }, 1000);
+                    });
+                } else {
+                    mensagem.innerHTML = `<span style="color:red;">Email e/ou senha inválidos!</span>`;
+                    console.log("Houve um erro ao tentar realizar o login!");
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
         }
-
-        /* VALIDAR EMAIL */
-
-        else if (!email.includes("@") || !email.includes(".")) {
-
-            mensagem.innerHTML = `
-                <span style="color:red;">
-                    Digite um email válido!
-                </span>
-            `;
-
-        }
-
-        /* VALIDAR SENHA */
-
-        else if (senha.length < 6) {
-
-            mensagem.innerHTML = `
-                <span style="color:red;">
-                    A senha deve ter pelo menos 6 caracteres!
-                </span>
-            `;
-
-        }
-
-        /* LOGIN CORRETO */
-
-        else {
-
-            mensagem.innerHTML = `
-                <span style="color:green;">
-                    Login realizado com sucesso!
-                </span>
-            `;
-
-        }
-
     }
-
 </script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +10,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="header">
         <div class="container">
             <div class="div-logo">
                 <img src="./assets/imgs/logo_sem_fundo.png" alt="Logo Patinha" class="logo-img">
-                
             </div>
             <ul class="navbar">
-                <li><a href="#" class="nav-link ativo">Home</a></li>
-                <li><a href="#curiosidades" class="nav-link">Curiosidades</a></li>
-                <li><a href="#adocao" class="nav-link">Adoção</a></li>
-                <li><a href="dashboard/cards.html">Dashboard</a></li>
-                <li class="separador">|</li>
-                <li class="btn-grupo-auth">
-                    <a href="login.html" class="auth-link">Entrar</a>
-                    <span class="auth-divisor">|</span>
-                    <a href="cadastro.html" class="auth-link">Cadastrar</a>
+                <li><a href="index.html" class="agora">Home</a></li>
+                <li><a href="#">Curiosidades</a></li>
+                <li><a href="#">Adoçao</a></li>
+                <li><a href="#">Acompanhamento</a></li>
+                <li id="li_deslogado" class="btn-grupo-auth">
+                    <a href="login.html">Entrar</a>
+                    <span>|</span>
+                    <a href="cadastro.html">Cadastrar</a>
+                </li>
+                    <span>|</span>
+                <li id="li_logado" class="texto-logado" style="display: none;">
+                    <span>Olá, <b id="b_usuario"></b>!</span>
+                    
                 </li>
             </ul>
         </div>
@@ -36,8 +41,9 @@
         <div class="container main-content">
             <div class="hero-texto">
                 <p>Mais que pets, <br><span>companheiros de vida...</span></p>
-                <h4>"Acreditamos que todo gato merece um lar e todo humano merece o carinho de um felino. Aqui, você aprende, cuida e monitora a felicidade do seu companheiro."</h4>
-                <button class="btn-hero" onclick="window.location.href='cadastro.html'">Começar nossa jornada</button>
+                <h4>"Acreditamos que todo gato merece um lar e todo humano merece o carinho de um felino. Aqui, você
+                    aprende, cuida e monitora a felicidade do seu companheiro."</h4>
+                <button class="btn-hero" onclick="window.location.href='cadastro.html'">Explore esse universo</button>
             </div>
             <div class="hero-img-container">
                 <div class="circulo-amarelo"></div>
@@ -51,30 +57,39 @@
 
     <section id="curiosidades" class="section-curiosidades">
         <div class="container-curiosidades">
-            <h2 class="titulo-sessao">🐾 🐾 Curiosidades Interessantes 🐾</h2>
+            <h2 class="titulo-sessao">🐾 🐾 Curiosidades Interessantes 🐾 🐾</h2>
 
             <div class="card-curiosidade">
                 <img src="./assets/imgs/istockphoto-1137985887-612x612.jpg" alt="Gato ronronando">
                 <div class="texto-card">
                     <h3>Muito mais que um som: A frequência da cura.</h3>
-                    <p>Você sabia que o ronronar de um gato vibra entre 25 e 150 Hertz? Estudos mostram que essa frequência sonora pode auxiliar na regeneração de tecidos humanos, reduzir a pressão arterial e diminuir o risco de ataques cardíacos em até 40%. Ter um gato não é apenas companhia, é um investimento na sua saúde.</p>
+                    <p>Você sabia que o ronronar de um gato vibra entre 25 e 150 Hertz? Estudos mostram que essa
+                        frequência sonora pode auxiliar na regeneração de tecidos humanos, reduzir a pressão arterial e
+                        diminuir o risco de ataques cardíacos em até 40%. Ter um gato não é apenas companhia, é um
+                        investimento na sua saúde.</p>
                 </div>
             </div>
-            
+
             <div class="card-curiosidade">
                 <img src="./assets/imgs/curiosidades2.webp" alt="Gato piscando devagar">
                 <div class="texto-card">
                     <h3>O 'beijo' do gatinho</h3>
-                    <p>Já percebeu seu gato olhando para você e piscando bem devagar? Na psicologia felina, isso é conhecido como 'Slow Blink'. É a maior prova de confiança que eles podem dar. Tente retribuir o gesto: pisque devagar para o seu amigo e veja como a conexão entre vocês aumenta instantaneamente.</p>
+                    <p>Já percebeu seu gato olhando para você e piscando bem devagar? Na psicologia felina, isso é
+                        conhecido como 'Slow Blink'. É a maior prova de confiança que eles podem dar. Tente retribuir o
+                        gesto: pisque devagar para o seu amigo e veja como a conexão entre vocês aumenta
+                        instantaneamente.</p>
                 </div>
             </div>
 
-            
+
             <div class="card-curiosidade">
                 <img src="./assets/imgs/curiosidades1.png" alt="Gato e pessoa">
                 <div class="texto-card">
                     <h3>Amor com consentimento</h3>
-                    <p>Diferente dos cães, os gatos valorizam o espaço pessoal. Eles demonstram afeto de formas sutis: encostando a cabeça em você (troca de feromônios), seguindo você pelos cômodos ou 'amassando pãozinho' no seu colo. Entender esses sinais é a chave para uma amizade profunda e respeitosa.</p>
+                    <p>Diferente dos cães, os gatos valorizam o espaço pessoal. Eles demonstram afeto de formas sutis:
+                        encostando a cabeça em você (troca de feromônios), seguindo você pelos cômodos ou 'amassando
+                        pãozinho' no seu colo. Entender esses sinais é a chave para uma amizade profunda e respeitosa.
+                    </p>
                 </div>
             </div>
 
@@ -82,13 +97,16 @@
                 <img src="./assets/imgs/curiosidades3.webp" alt="Pessoa com gato">
                 <div class="texto-card">
                     <h3>Antidoto contra a solidão</h3>
-                    <p>Viver com um gato estimula a produção de ocitocina (o hormônio do amor) e serotonina no cérebro humano. Para quem sofre de ansiedade ou depressão, ter uma rotina de cuidados com um pet traz propósito e um senso de segurança emocional incomparável.</p>
+                    <p>Viver com um gato estimula a produção de ocitocina (o hormônio do amor) e serotonina no cérebro
+                        humano. Para quem sofre de ansiedade ou depressão, ter uma rotina de cuidados com um pet traz
+                        propósito e um senso de segurança emocional incomparável.</p>
                 </div>
             </div>
 
             <div class="cta-pesquisa">
                 <p>A ciência prova, mas e você? O quanto seu gatinho muda o seu humor?<br>
-                <strong>Participe da nossa pesquisa abaixo!</strong></p>
+                    <strong>Participe da nossa pesquisa abaixo!</strong>
+                </p>
             </div>
 
             <div class="escala-felicidade">
@@ -140,14 +158,19 @@
                 <span class="patinha-deco">🐾</span>
                 <span class="patinha-deco">🐾</span>
                 <h2><em>Adotar</em> é transformar um destino.</h2>
-                <p class="subtitulo-adocao">Existem milhares de ronrons esperando por um lar. O próximo pode ser o seu!</p>
+                <p class="subtitulo-adocao">Existem milhares de ronrons esperando por um lar. O próximo pode ser o seu!
+                </p>
             </div>
         </div>
 
         <!-- Texto + Imagem -->
         <div class="container adocao-flex">
             <div class="texto-adocao">
-                <p class="desc-adocao">Ao escolher a adoção, você não está apenas ganhando um amigo; você está combatendo o abandono e abrindo espaço em abrigos para que outros animais possam ser salvos. Gatos de abrigo, muitas vezes, carregam uma gratidão silenciosa que se transforma no vínculo mais forte que você já experimentou. Adotar é um ato de resistência contra o descaso e um passo gigante em direção a uma sociedade mais empática.</p>
+                <p class="desc-adocao">Ao escolher a adoção, você não está apenas ganhando um amigo; você está
+                    combatendo o abandono e abrindo espaço em abrigos para que outros animais possam ser salvos. Gatos
+                    de abrigo, muitas vezes, carregam uma gratidão silenciosa que se transforma no vínculo mais forte
+                    que você já experimentou. Adotar é um ato de resistência contra o descaso e um passo gigante em
+                    direção a uma sociedade mais empática.</p>
             </div>
             <div class="img-adocao">
                 <img src="./assets/imgs/img_adocao.jpg" alt="Gatos para adoção">
@@ -167,6 +190,38 @@
             </div>
         </div>
 
+    </section>
+
+    <section id="comentarios" class="section-comentarios">
+        <div class="container">
+            <div class="box-comentarios">
+                <h2>Compartilhe um pouco da sua história com seu pet conosco!</h2>
+
+                <div id="feed_comentarios" class="feed-comentarios">
+                    <div class="comentario-item">
+                        <img src="./assets/imgs/avatar_f.png" alt="Avatar" class="avatar-comment">
+                        <div class="texto-comentario">
+                            <p>Ter um gato oferece diversos benefícios para a saúde física e mental, incluindo a redução
+                                do estresse...</p>
+                        </div>
+                    </div>
+                    <div class="comentario-item">
+                        <img src="./assets/imgs/avatar_m.png" alt="Avatar" class="avatar-comment">
+                        <div class="texto-comentario">
+                            <p>A minha rotina mudou completamente depois que adotei o Mingau. Ele ronrona toda vez que
+                                chego!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="publicar-comentario">
+                    <textarea id="textarea_comentario" placeholder="Escreva seu comentário!"></textarea>
+                    <button class="btn-enviar-comentario" onclick="publicar()">
+                        Enviar <span class="setinha">➤</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- ===== FOOTER ===== -->
@@ -207,7 +262,7 @@
         // Seções monitoradas
         const secoes = [
             { id: 'curiosidades', link: navLinks[1] },
-            { id: 'adocao',       link: navLinks[2] },
+            { id: 'adocao', link: navLinks[2] },
         ];
 
         function atualizarNavAtivo() {
@@ -225,9 +280,54 @@
             ativoAtual.classList.add('ativo');
         }
 
+        // 1. Criamos a função
+        function verificarSessao() {
+            // 2. Tentamos ler o nome que salvamos no login
+            var nome = sessionStorage.NOME_USUARIO;
+            var email = sessionStorage.EMAIL_USUARIO;
+
+            // 3. Pegamos as "caixas" do HTML pelos IDs que criamos no Passo 1
+            var liDeslogado = document.getElementById("li_deslogado");
+            var liLogado = document.getElementById("li_logado");
+            var b_usuario = document.getElementById("b_usuario");
+
+            // 4. A Lógica: Se o nome existir (pessoa logou)...
+            if (email != null && nome != null) {
+                if (liDeslogado) liDeslogado.style.display = "none";
+                if (liLogado) liLogado.style.display = "flex"; // Use flex para manter o alinhamento rosa
+                if (b_usuario) b_usuario.innerHTML = nome ;
+            } else {
+                if (liDeslogado) liDeslogado.style.display = "block";
+                if (liLogado) liLogado.style.display = "none";
+            }
+        }
+
+        verificarSessao();
+
+        function publicar() {
+            var idUsuario = sessionStorage.ID_USUARIO; // Variável padrão do web-data-viz
+            var comentario = textarea_comentario.value;
+
+            if (comentario == "") {
+                alert("Escreva um comentário para enviar!");
+                return;
+            }
+
+            if (idUsuario == undefined) {
+                alert("Você precisa estar logado para comentar! Redirecionando para o cadastro...");
+                window.location.href = "cadastro.html";
+                return;
+            }
+
+            // Se estiver logado e houver texto:
+            alert("Comentário enviado com sucesso! (Aqui faremos o INSERT no banco depois)");
+            textarea_comentario.value = "";
+        }
+
         window.addEventListener('scroll', atualizarNavAtivo);
         atualizarNavAtivo(); // executa ao carregar a página
     </script>
 
 </body>
+
 </html>

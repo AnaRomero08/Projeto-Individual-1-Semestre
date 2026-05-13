@@ -22,6 +22,10 @@
                 <h2>Cadastre você e seu gatinho!</h2>
                 <div class="formulario">
                     <div class="campo">
+                        <span>Nome Completo:</span>
+                        <input id="nome_input" type="text" placeholder="Nome Completo">
+                    </div>
+                    <div class="campo">
                         <span>Email:</span>
                         <input id="email_input" type="text" placeholder="email@email.com">
                     </div>
@@ -85,6 +89,7 @@
                 <p id="link_login">Já tem uma conta? <a href="login.html">Entre</a></p>
             </div>
             <script>
+                // Função para mudar o texto do botão conforme a seleção do rádio
                 function mudarBotao(tipo) {
                     const btn = document.getElementById('btn_acao');
                     if (tipo === 'proximo') {
@@ -102,35 +107,114 @@
                     const btnVoltar = document.getElementById('btn_voltar');
                     const linkLogin = document.getElementById('link_login');
 
+                    // Se marcou que tem pet e ainda está na primeira etapa
                     if (temPet === 'sim' && etapaPet.style.display === 'none') {
-                        // Vai para a etapa do pet
-                        etapaUser.style.display = 'none';
-                        etapaPet.style.display = 'block';
-                        btnAcao.innerHTML = "Finalizar Cadastro";
-                        btnVoltar.style.display = "block"; // Mostra botão voltar
-                        linkLogin.style.display = 'none';
+                        // Validação básica da primeira etapa antes de prosseguir
+                        if (validarPrimeiraEtapa()) {
+                            etapaUser.style.display = 'none';
+                            etapaPet.style.display = 'block';
+                            btnAcao.innerHTML = "Finalizar Cadastro";
+                            btnVoltar.style.display = "block";
+                            linkLogin.style.display = 'none';
+                        }
                     } else {
-                        // Finaliza o cadastro
-                        alert("Usuário e Pet cadastrados com sucesso!");
-                        window.location.href = "index.html";
+                        // Se não tem pet OU se já está na etapa do pet, chama o cadastro final
+                        cadastrar();
                     }
                 }
 
-                function voltarEtapa() {
-                    const etapaUser = document.getElementById('etapa_usuario');
-                    const etapaPet = document.getElementById('etapa_pet');
-                    const btnAcao = document.getElementById('btn_acao');
-                    const btnVoltar = document.getElementById('btn_voltar');
-                    const linkLogin = document.getElementById('link_login');
-
-                    // Volta para a etapa do usuário
-                    etapaUser.style.display = 'block';
-                    etapaPet.style.display = 'none';
-                    btnAcao.innerHTML = "Próximo ->";
-                    btnVoltar.style.display = "none"; // Esconde botão voltar
-                    linkLogin.style.display = 'block';
+                function validarPrimeiraEtapa() {
+                    var email = email_input.value;
+                    var senha = senha_input.value;
+                    if (email == "" || senha == "") {
+                        alert("Por favor, preencha email e senha para continuar.");
+                        return false;
+                    }
+                    return true;
                 }
-                
+
+                function cadastrar() {
+                    // Recuperando os valores do formulário
+                    var nomeVar = nome_input.value;
+                    var emailVar = email_input.value;
+                    var senhaVar = senha_input.value;
+                    var telefoneVar = tel_input.value;
+                    var temPetVar = document.querySelector('input[name="temPet"]:checked').value === 'sim' ? 1 : 0;
+
+                    var nomePetVar = (temPetVar == 1) ? nome_pet_input.value : null;
+                    var idadePetVar = (temPetVar == 1) ? idade_pet_input.value : null;
+                    var pesoPetVar = (temPetVar == 1) ? peso_pet_input.value : null;
+                    var diasVar = (temPetVar == 1) ? tempo_pet_input.value : null;
+
+                    if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+                        alert("Campos obrigatórios vazios!");
+                        return;
+                    }
+
+
+                    // Validação parte
+                    // Se tiver pet, validamos os campos antes de enviar
+                    if (temPetVar == 1) {
+                        var nomePetVar = nome_pet_input.value;
+                        var idadePetVar = idade_pet_input.value;
+                        var pesoPetVar = peso_pet_input.value.replace(',', '.'); // Garante o ponto decimal
+                        var diasVar = tempo_pet_input.value;
+
+                        // VALIDAÇÃO: Se algum campo estiver vazio ou for inválido
+                        if (nomePetVar == "" || idadePetVar == "" || pesoPetVar == "" || diasVar == "") {
+                            alert("Por favor, preencha todos os campos do seu pet para continuar!");
+                            return false; // Interrompe a função e não faz o fetch
+                        }
+
+                        if (Number(pesoPetVar) <= 0 || Number(idadePetVar) < 0) {
+                            alert("Por favor, insira valores válidos para peso e idade!");
+                            return false;
+                        }
+                    }
+
+                    // Enviando para o servidor via Fetch
+                    fetch("/usuarios/cadastrar", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            nomeServer: nomeVar,
+                            emailServer: emailVar,
+                            senhaServer: senhaVar,
+                            telefoneServer: telefoneVar,
+                            temPetServer: temPetVar,
+                            // Dados do pet (opcional para o servidor tratar depois)
+                            nomePetServer: nomePetVar,
+                            idadePetServer: idadePetVar,
+                            pesoPetServer: pesoPetVar, // <-- Verifique se este nome está igual ao do Controller
+                            diasServer: diasVar
+                        }),
+                    })
+                        .then(function (resposta) {
+                            if (resposta.ok) {
+                                alert("Cadastro realizado com sucesso! Redirecionando para o login...");
+                                setTimeout(() => {
+                                    window.location = "login.html";
+                                }, 1000);
+                            } else {
+                                throw "Houve um erro ao tentar realizar o cadastro!";
+                            }
+                        })
+                        .catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+                        });
+
+                    return false;
+                }
+
+                function voltarEtapa() {
+                    document.getElementById('etapa_usuario').style.display = 'block';
+                    document.getElementById('etapa_pet').style.display = 'none';
+                    document.getElementById('btn_acao').innerHTML = "Próximo ->";
+                    document.getElementById('btn_voltar').style.display = "none";
+                    document.getElementById('link_login').style.display = 'block';
+                }
             </script>
 </body>
 
