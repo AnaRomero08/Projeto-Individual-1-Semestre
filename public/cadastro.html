@@ -84,6 +84,7 @@
                     <button id="btn_voltar" class="btn-voltar" onclick="voltarEtapa()"
                         style="display: none;">Voltar</button>
                     <button id="btn_acao" class="btn-enviar" onclick="proximaEtapa()">Cadastrar</button>
+                    <div id="mensagem"></div>
                 </div>
                 <p id="link_login">Já tem uma conta? <a href="login.html">Entre</a></p>
             </div>
@@ -192,8 +193,7 @@
                     })
                         .then(function (resposta) {
                             if (resposta.ok) {
-                                alert("Cadastro realizado com sucesso! Redirecionando para o login...");
-                                setTimeout(() => {
+                                    mensagem.innerHTML = `<span style="color:green;">Cadastro realizado com sucesso! Redirecionando...</span>`;                                setTimeout(() => {
                                     window.location = "login.html";
                                 }, 1000);
                             } else {

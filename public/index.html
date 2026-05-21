@@ -20,20 +20,19 @@
             </div>
             <ul class="navbar">
                 <li><a href="index.html" class="agora">Home</a></li>
-                <li><a href="#">Curiosidades</a></li>
-                <li><a href="#">Adoçao</a></li>
-                <li><a href="#">Acompanhamento</a></li>
+                <li><a href="#curiosidades">Curiosidades</a></li>
+                <li><a href="#adocao">Adoçao</a></li>
+                <li><a href="#" onclick="redirecionarDashboard()">Acompanhamento</a></li>
                 <li id="li_deslogado" class="btn-grupo-auth">
                     <a href="login.html">Entrar</a>
                     <span>|</span>
                     <a href="cadastro.html">Cadastrar</a>
                 </li>
-                    <span>|</span>
+                <span>|</span>
                 <li id="li_logado" class="texto-logado" style="display: none;">
                     <span>Olá, <b id="b_usuario"></b>!</span>
-                    
                 </li>
-            </ul>
+                <a href="#" id="btn_sair" onclick="limparSessao()" class="btn-sair" style="display: none;">Sair ➤</a>            </ul>
         </div>
     </div>
 
@@ -142,7 +141,8 @@
                             <span class="patinha-num">5</span>
                         </label>
                     </div>
-                    <button class="btn-enviar">Enviar</button>
+                    <button class="btn-enviar" onclick="enviarFelicidade()">Enviar</button>
+                    <div id="mensagem_feedback" class="feedback-msg"></div>
                 </div>
             </div>
 
@@ -151,6 +151,7 @@
 
     <!-- ===== ADOÇÃO ===== -->
     <section id="adocao" class="section-adocao">
+
 
         <!-- Box título destaque -->
         <div class="container">
@@ -177,19 +178,50 @@
             </div>
         </div>
 
-        <!-- Box Pesquisa -->
-        <div class="container">
-            <div class="box-pesquisa">
-                <h3>Qual sua relação atual com a adoção?</h3>
-                <div class="opcoes-pesquisa">
-                    <label><input type="radio" name="adocao" value="ja_adotei"> Já adotei e recomendo!</label>
-                    <label><input type="radio" name="adocao" value="procurando"> Estou procurando meu novo amigo</label>
-                    <label><input type="radio" name="adocao" value="decidindo"> Ainda estou me decidindo</label>
-                </div>
-                <button class="btn-enviar">Enviar</button>
-            </div>
-        </div>
+        <section id="secao_adocao" class="fundo-destaque">
+            <div class="adocao-container">
+                <div class="adocao-opcoes">
+                    <h3>Qual sua relação atual com a adoção?</h3>
 
+                    <label class="opcao-card">
+                        <input type="radio" name="resposta_adocao" value="recomendo" onchange="mudarTexto(this.value)">
+                        <div class="card-conteudo">
+                            <span class="dot"></span>
+                            <p>Já adotei e recomendo!</p>
+                        </div>
+                    </label>
+
+                    <label class="opcao-card">
+                        <input type="radio" name="resposta_adocao" value="procurando" onchange="mudarTexto(this.value)">
+                        <div class="card-conteudo">
+                            <span class="dot"></span>
+                            <p>Estou procurando meu novo amigo</p>
+                        </div>
+                    </label>
+
+                    <label class="opcao-card">
+                        <input type="radio" name="resposta_adocao" value="decidindo" onchange="mudarTexto(this.value)">
+                        <div class="card-conteudo">
+                            <span class="dot"></span>
+                            <p>Ainda estou me decidindo</p>
+                        </div>
+                    </label>
+
+                    <button onclick="enviarAdocao()" class="btn-enviar">Enviar</button>
+                    <div id="mensagem_feedback_adocao" class="feedback-msg"></div>
+                </div>
+
+                <div class="adocao-info" id="painel_info">
+                    <div class="info-placeholder">
+                        <img src="assets/imgs/adocao.jpg" alt="Gatinho fofo" id="foto_gatinho">
+
+                        <p id="texto_vantagem" class="info-texto">
+                            Selecione uma opção para ver as vantagens de adotar!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </section>
 
     <section id="comentarios" class="section-comentarios">
@@ -265,9 +297,19 @@
             { id: 'adocao', link: navLinks[2] },
         ];
 
+
         function atualizarNavAtivo() {
+            var path = window.location.pathname;
+            var pagina = path.split("/").pop();
             const scrollY = window.scrollY;
             let ativoAtual = navLinks[0]; // padrão: Home
+
+            // Exemplo de como proteger o código:
+            var elementoMural = document.getElementById("nav_mural");
+
+            if (elementoMural != null) {
+                elementoMural.classList.add("active");
+            }
 
             secoes.forEach(({ id, link }) => {
                 const secao = document.getElementById(id);
@@ -276,11 +318,16 @@
                 }
             });
 
-            navLinks.forEach(link => link.classList.remove('ativo'));
-            ativoAtual.classList.add('ativo');
+            navLinks.forEach(link => {
+                if (link) link.classList.remove('ativo');
+            });
+            // SÓ adiciona a classe se ativoAtual existir e for um objeto HTML
+            if (ativoAtual && typeof ativoAtual === 'object') {
+                ativoAtual.classList.add('ativo');
+            }
         }
 
-        // 1. Criamos a função
+        // Função logar usuário
         function verificarSessao() {
             // 2. Tentamos ler o nome que salvamos no login
             var nome = sessionStorage.NOME_USUARIO;
@@ -290,31 +337,167 @@
             var liDeslogado = document.getElementById("li_deslogado");
             var liLogado = document.getElementById("li_logado");
             var b_usuario = document.getElementById("b_usuario");
+            var btnSair = document.getElementById("btn_sair");
 
             // 4. A Lógica: Se o nome existir (pessoa logou)...
             if (email != null && nome != null) {
                 if (liDeslogado) liDeslogado.style.display = "none";
                 if (liLogado) liLogado.style.display = "flex"; // Use flex para manter o alinhamento rosa
-                if (b_usuario) b_usuario.innerHTML = nome ;
+                if (b_usuario) b_usuario.innerHTML = nome;
+                if(btnSair) btnSair.style.display = "block";
             } else {
                 if (liDeslogado) liDeslogado.style.display = "block";
                 if (liLogado) liLogado.style.display = "none";
+                if(btnSair) btnSair.style.display = "none";
             }
         }
 
         verificarSessao();
 
+        function redirecionarDashboard() {
+
+            const idUsuario = sessionStorage.ID_USUARIO;
+
+            if (!idUsuario) {
+                window.location = "login.html";
+                return;
+            }
+            const temPet = sessionStorage.TEM_PET;
+
+            if (temPet == 1) {
+                window.location = "dashboardPet.html";
+            } else {
+                window.location = "dashboardSemPet.html";
+            }
+        }
+
+        function limparSessao() {
+            // 1. Remove todas as informações do usuário salvas na sessão do navegador
+            sessionStorage.clear();
+            // Ajuste o caminho ("login.html") de acordo com o nome da sua página real
+            window.location.href = "login.html";
+        }
+
+
+        // Função enviar o formulário de felicidade
+        function enviarFelicidade() {
+            var feedback = document.getElementById("mensagem_feedback");
+            var selecionado = document.querySelector('input[name="felicidade"]:checked');
+
+            // Validação básica: se não selecionou nada, avisamos
+            if (selecionado == null) {
+                feedback.innerHTML = `<span style="color:red;">Selecione uma patinha para enviar!</span>`;
+                return;
+            }
+            var valorFelicidade = selecionado.value;
+            console.log("Valor capturado: " + valorFelicidade);
+
+
+            // Se não houver ninguém logado, idUsuario será null
+            var idUsuario = sessionStorage.ID_USUARIO || null;
+            var idFormulario = 1; // ID do formulário de felicidade no seu banco
+
+            fetch("/formularios/cadastrarResposta", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    valorServer: valorFelicidade,
+                    idUsuarioServer: idUsuario,
+                    idFormularioServer: idFormulario
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    // Feedback visual de que funcionou
+                    feedback.innerHTML = `<span style="color:green;">Obrigada por compartilhar sua felicidade!</span>`;
+                    // Aqui você pode esconder o formulário ou mostrar uma mensagem de agradecimento
+                } else {
+                    console.error("Erro ao enviar resposta");
+                }
+            });
+        }
+
+        function enviarAdocao() {
+            var feedback = document.getElementById("mensagem_feedback_adocao");
+
+            // Captura o rádio selecionado que tem o name "resposta_adocao"
+            var rádioSelecionado = document.querySelector('input[name="resposta_adocao"]:checked');
+
+            // Validação para o usuário não enviar o formulário em branco
+            if (rádioSelecionado == null) {
+                feedback.innerHTML = `<span style="color:red;">Por favor, selecione uma opção antes de enviar!🐾</span>`;
+                feedback.className = "feedback-msg erro";
+                return; // Para a execução aqui se não tiver nada selecionado
+            }
+
+            // Se não houver ninguém logado, idUsuario será null
+            var idUsuario = sessionStorage.ID_USUARIO || null;
+            var idFormulario = 2; // ID do formulário de felicidade no seu banco
+            var valorAdocao = rádioSelecionado.value;
+
+            console.log("Valor capturado da adoção:", valorAdocao);
+
+            // Faz o envio para a MESMA rota do formulário de felicidade
+            fetch("/formularios/cadastrarResposta", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    valorServer: valorAdocao,
+                    idUsuarioServer: idUsuario,
+                    idFormularioServer: idFormulario // Mudamos para 2 porque este é o formulário de adoção!
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    feedback.innerHTML = `<span style="color:green;">Resposta enviada com sucesso!❤️</span>`;
+                    feedback.className = "feedback-msg sucesso";
+
+                    // Opcional: Limpa a mensagem depois de 3 segundos
+                    setTimeout(() => { feedback.innerHTML = ""; }, 3000);
+                } else {
+                    throw ("Erro ao cadastrar resposta de adoção!");
+                }
+            }).catch(function (erro) {
+                console.log("#ERRO:", erro);
+                feedback.innerHTML = "Erro ao enviar. Tente novamente.";
+                feedback.className = "feedback-msg erro";
+            });
+        }
+
+        // Objeto com os textos das vantagens da adoção
+        const vantagens = {
+            "recomendo": "Que alegria! Gatos adotados criam laços únicos de gratidão. Continue espalhando essa ideia! 🐾",
+            "procurando": "Dica: Gatos pretos são os que mais esperam por um lar nas ONGs. Que tal dar uma chance para uma panterinha?",
+            "decidindo": "Sabia que adotar um gato adulto é ótimo? Eles já têm a personalidade calma e não fazem tanta bagunça!"
+        };
+
+        function mudarTexto(valor) {
+            // Buscamos apenas o elemento de texto, deixando a foto em paz
+            var elementoTexto = document.getElementById("texto_vantagem");
+
+            if (elementoTexto != null) {
+                // Altera apenas o texto interno
+                elementoTexto.innerHTML = vantagens[valor];
+
+                // Opcional: Reaplica a animação de surgimento sutil caso queira
+                elementoTexto.style.animation = 'none';
+                elementoTexto.offsetHeight; /* truque para resetar a animação no navegador */
+                elementoTexto.style.animation = 'fadeIn 0.5s ease-in';
+            }
+        }
+
         function publicar() {
+            var feedback = document.getElementById("mensagem_feedback");
             var idUsuario = sessionStorage.ID_USUARIO; // Variável padrão do web-data-viz
             var comentario = textarea_comentario.value;
 
             if (comentario == "") {
-                alert("Escreva um comentário para enviar!");
+                feedback.innerHTML = `<span style="color:red;">Escreva um comentário para enviar</span>`;
                 return;
             }
 
             if (idUsuario == undefined) {
-                alert("Você precisa estar logado para comentar! Redirecionando para o cadastro...");
+                feedback.innerHTML = `<span style="color:red;">Cadastre-se para comentar!</span>`;
                 window.location.href = "cadastro.html";
                 return;
             }

@@ -1,0 +1,422 @@
+:root {
+    --rosa-forte: #e3669c;
+    --rosa-suave: #ffe4ef;
+    --rosa-leve: #fff2f7;
+    --rosa-medio: #f5c0d8;
+    --amarelo: #f9d473;
+    --amarelo-suave: #fff9e6;
+    --marrom: #58463e;
+    --texto: #4a4a4a;
+    --branco: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--texto);
+    background-color: var(--rosa-leve);
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: var(--branco);
+    height: 90px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--texto);
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.navbar a:hover {
+    color: var(--rosa-forte);
+}
+
+.navbar li.agora a,
+.navbar li a.ativo {
+    background-color: var(--rosa-suave);
+    color: var(--texto);
+    padding: 6px 18px;
+    border-radius: 20px;
+}
+
+.navbar li.separador {
+    color: #ccc;
+    font-weight: 300;
+}
+
+/* ===== DASHBOARD LAYOUT ===== */
+
+.dashboard-container {
+    width: 90%;
+    margin: 20px auto 40px;
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+/* ===== LEFT SIDE ===== */
+
+.left-side {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+/* ===== CARDS KPI ===== */
+
+.card {
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.card h2 {
+    color: var(--marrom);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.card span {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--marrom);
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Subtexto explicativo dentro dos cards KPI */
+.card .kpi-descricao {
+    font-size: 12px;
+    color: var(--marrom);
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+/* Dica em destaque dentro do card */
+.card .kpi-dica {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--marrom);
+    margin-top: 8px;
+    padding: 6px 10px;
+    background-color: rgba(255,255,255,0.45);
+    border-radius: 10px;
+    line-height: 1.5;
+}
+
+.card .kpi-dica b {
+    font-weight: 700;
+}
+
+/* KPI COLORS */
+
+.lilas {
+    background-color: #f5bdff;
+}
+
+.amarelo {
+    background-color: #f8a6ce;
+}
+
+/* ===== FORMULÁRIO ===== */
+
+.formulario {
+    background-color: #ffe7aa;
+    padding-bottom: 18px;
+}
+
+.formulario h3 {
+    margin-bottom: 6px;
+    color: var(--marrom);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Subtítulo do formulário */
+.formulario .form-subtitulo {
+    font-size: 12px;
+    color: var(--marrom);
+    opacity: 0.75;
+    margin-bottom: 14px;
+    line-height: 1.4;
+}
+
+.formulario label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--marrom);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.formulario input {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ead2ef;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    color: var(--marrom);
+}
+
+.formulario input::placeholder {
+    color: #a890b0;
+}
+
+.formulario button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 14px;
+    background-color: var(--rosa-forte);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.2s;
+}
+
+.formulario button:hover {
+    transform: scale(1.02);
+    background-color: #cf4f88;
+}
+
+/* ===== RIGHT SIDE ===== */
+
+.right-side {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ===== GRÁFICO — altura reduzida para caber o alerta ===== */
+
+.grafico-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    position: relative;
+    height: 500px;
+}
+
+.grafico-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--marrom);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#graficoPeso {
+    width: 100% !important;
+    height: calc(100% - 32px) !important;
+}
+
+/* ===== CARD DE ALERTA ===== */
+
+.alerta-card {
+    border-radius: 18px;
+    padding: 22px 26px;
+    display: none;
+}
+
+.alerta-card.visivel {
+    display: block;
+}
+
+/* Cabeçalho: título + badge de status */
+.alerta-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.alerta-card .alerta-titulo {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alerta-badge {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+/* Linha de pesos: atual vs ideal */
+.alerta-pesos {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.peso-box {
+    flex: 1;
+    background-color: rgba(255,255,255,0.55);
+    border-radius: 14px;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+.peso-box .peso-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.peso-box .peso-valor {
+    font-size: 26px;
+    font-weight: 700;
+    display: block;
+    line-height: 1.1;
+}
+
+.peso-box .peso-sub {
+    font-size: 11px;
+    opacity: 0.6;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Barra de progresso */
+.alerta-barra-wrap {
+    margin-bottom: 18px;
+}
+
+.alerta-barra-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.alerta-barra-fundo {
+    width: 100%;
+    height: 12px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.alerta-barra-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.6s ease;
+    min-width: 4px;
+}
+
+/* Marcador do peso ideal na barra */
+.alerta-barra-marcador {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 2px;
+}
+
+/* Dicas */
+.alerta-dicas-titulo {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+}
+
+.alerta-card ul {
+    padding-left: 18px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+}
+
+.alerta-card li {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 2px;
+}
+
+/* ── Variações por status ── */
+
+.alerta-acima {
+    background-color: #ffe4ef;
+    border-left: 4px solid var(--rosa-forte);
+}
+.alerta-acima .alerta-titulo  { color: #a8275c; }
+.alerta-acima .alerta-badge   { background-color: #e3669c; color: #fff; }
+.alerta-acima .peso-box       { color: #7a1f44; }
+.alerta-acima .alerta-barra-fill { background-color: #e3669c; }
+.alerta-acima li              { color: #7a1f44; }
+
+.alerta-ideal {
+    background-color: #e9f9e4;
+    border-left: 4px solid #6abf5e;
+}
+.alerta-ideal .alerta-titulo  { color: #2e7a22; }
+.alerta-ideal .alerta-badge   { background-color: #6abf5e; color: #fff; }
+.alerta-ideal .peso-box       { color: #255c1a; }
+.alerta-ideal .alerta-barra-fill { background-color: #6abf5e; }
+.alerta-ideal li              { color: #255c1a; }
+
+.alerta-abaixo {
+    background-color: var(--amarelo-suave);
+    border-left: 4px solid #e6b800;
+}
+.alerta-abaixo .alerta-titulo { color: #7a5c0a; }
+.alerta-abaixo .alerta-badge  { background-color: #f9d473; color: #7a5c0a; }
+.alerta-abaixo .peso-box      { color: #5c4408; }
+.alerta-abaixo .alerta-barra-fill { background-color: #f9d473; }
+.alerta-abaixo li             { color: #5c4408; }

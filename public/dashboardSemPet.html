@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="stylesheet" href="./css/dashboardSemPet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="div-logo">
+                <img src="./assets/imgs/logo_sem_fundo.png" alt="Logo Patinha" class="logo-img">
+            </div>
+            <ul class="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#curiosidades">Curiosidades</a></li>
+                <li><a href="index.html#adocao">Adoçao</a></li>
+                <li><a href="#" class="agora">Acompanhamento</a></li>
+                <span>|</span>
+                <li id="li_logado" class="texto-logado" style="display: none;">
+                    <span>Olá, <b id="b_usuario"></b>!</span>
+                </li>
+                <a href="#" id="btn_sair" onclick="limparSessao()" class="btn-sair" style="display: none;">Sair ➤</a>
+            </ul>
+        </div>
+    </div>
+
+    <section class="dsp-container">
+
+        <!-- ── LINHA 1: KPIs ── -->
+        <div class="dsp-kpis">
+
+            <div class="dsp-card kpi-rosa">
+                <h2>Vidas transformadas</h2>
+                <p class="kpi-sub">Total de pessoas que já adotaram algum felino</p>
+                <span id="span_vidas">—</span>
+            </div>
+
+            <div class="dsp-card kpi-amarelo">
+                <h2>Índice de felicidade</h2>
+                <p class="kpi-sub">Média da escala de felicidade</p>
+                <span id="span_felicidade">—</span>
+            </div>
+
+            <div class="dsp-card frase-card">
+                <h2>"Adoção é um ato de amor recíproco."</h2>
+                <p>
+                    Amor de graça, gratidão para a vida toda.
+                    Eles não podem escolher a família, mas você pode mudar o destino deles.
+                </p>
+            </div>
+
+            <!-- Pizza: Status de adoção -->
+            <div class="dsp-card pizza-card">
+                <h2 class="pizza-titulo">Status de Adoção</h2>
+                <div class="pizza-wrap">
+                    <canvas id="graficoPizza"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── LINHA 2: Gráfico de linhas + texto ── -->
+        <div class="dsp-linha2">
+
+            <div class="dsp-card linhas-card">
+                <h2 class="linhas-titulo">Jornada de Bem-estar</h2>
+                <div style="position: relative; flex: 1; min-height: 0;">
+                    <canvas id="graficoLinhas"></canvas>
+                </div>
+            </div>
+
+            <div class="dsp-card texto-card">
+                <p class="texto-citacao">
+                    "Estudos de antrozoologia indicam que a interação com felinos
+                    reduz drasticamente os níveis de cortisol (o hormônio do estresse)
+                    no organismo humano. O gráfico acima ilustra como a rotina de cuidados
+                    e o suporte emocional silencioso de um gato ajudam a estabilizar o humor.
+                    O ato de acariciar um gato libera ocitocina, promovendo uma sensação de
+                    segurança que atua como um suporte complementar no manejo da ansiedade
+                    e depressão. Ter um gato não substitui o tratamento profissional,
+                    mas oferece um porto seguro emocional todos os dias."
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+        window.onload = function () {
+            verificarSessao();
+            buscarKpis();
+            buscarStatusAdocao();
+            plotarGraficoLinhas();
+        };
+
+        /* ─── Sessão ──────────────────────────────────────────── */
+
+        function verificarSessao() {
+            var nome = sessionStorage.NOME_USUARIO;
+            var email = sessionStorage.EMAIL_USUARIO;
+            var liLogado = document.getElementById("li_logado");
+            var b_usuario = document.getElementById("b_usuario");
+            var btnSair = document.getElementById("btn_sair");
+
+            if (email != null && nome != null) {
+                if (liLogado) liLogado.style.display = "flex";
+                if (b_usuario) b_usuario.innerHTML = nome;
+                if (btnSair) btnSair.style.display = "block";
+            } else {
+                if (liLogado) liLogado.style.display = "none";
+                if (btnSair) btnSair.style.display = "none";
+            }
+        }
+
+        function limparSessao() {
+            sessionStorage.clear();
+            alert("Sessão encerrada com sucesso! Até logo. 🐾");
+            window.location.href = "../login.html";
+        }
+
+        /* ─── KPIs ────────────────────────────────────────────── */
+
+        function buscarKpis() {
+            fetch("/dashboardSemPet/kpis")
+                .then(res => res.json())
+                .then(dados => {
+                    document.getElementById("span_vidas").innerHTML =
+                        dados.vidas_transformadas ?? "0";
+
+                    const felicidade = dados.indice_felicidade;
+                    document.getElementById("span_felicidade").innerHTML =
+                        felicidade != null
+                            ? Number(felicidade).toFixed(2).replace(".", ",")
+                            : "—";
+                })
+                .catch(err => console.error("Erro ao buscar KPIs:", err));
+        }
+
+        /* ─── Gráfico de pizza ────────────────────────────────── */
+
+        function buscarStatusAdocao() {
+            fetch("/dashboardSemPet/statusAdocao")
+                .then(res => res.json())
+                .then(dados => plotarPizza(dados))
+                .catch(err => console.error("Erro ao buscar status de adoção:", err));
+        }
+
+        function plotarPizza(dados) {
+            const labels = dados.map(d => `${d.status_adocao}\n${d.percentual}%`);
+            const valores = dados.map(d => Number(d.total));
+            const percentuais = dados.map(d => d.percentual);
+            const cores = ["#e3669c", "#f9d473", "#f5bdff", "#f8a6ce"];
+
+            const ctx = document.getElementById("graficoPizza").getContext("2d");
+
+            new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: valores,
+                        backgroundColor: cores.slice(0, dados.length),
+                        borderWidth: 2,
+                        borderColor: "#fff"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "left",
+                            labels: {
+                                font: { family: "Poppins", size: 11 },
+                                padding: 14,
+                                boxWidth: 14
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (ctx) {
+                                    const pct = percentuais[ctx.dataIndex];
+                                    return ` ${ctx.label.split("\n")[0]}: ${pct}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /* ─── Gráfico de linhas (estático / mockado) ──────────── */
+
+        function plotarGraficoLinhas() {
+            const meses = [1, 2, 3, 4, 5, 6, 7];
+
+            // Dados simulados baseados em pesquisas de antrozoologia
+            const sensacaoBemEstar = [2, 3, 5, 6, 8, 10, 10];
+            const nivelEstresse = [9, 8, 6, 5, 3, 2, 1];
+
+            const ctx = document.getElementById("graficoLinhas").getContext("2d");
+
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: meses,
+                    datasets: [
+                        {
+                            label: "Sensação de Acolhimento/Felicidade",
+                            data: sensacaoBemEstar,
+                            borderColor: "#c9a6f5",
+                            backgroundColor: "#c9a6f5",
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointRadius: 5,
+                            fill: false
+                        },
+                        {
+                            label: "Nível de Estresse/Ansiedade",
+                            data: nivelEstresse,
+                            borderColor: "#aaaaaa",
+                            backgroundColor: "#aaaaaa",
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointRadius: 5,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                            align: "start",
+                            labels: {
+                                font: { family: "Poppins", size: 12 },
+                                usePointStyle: true,
+                                pointStyle: "line",
+                                padding: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Tempo de convivência (mês)"
+                            },
+                            min: 1,
+                            max: 7
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Escala"
+                            },
+                            min: 0,
+                            max: 10
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

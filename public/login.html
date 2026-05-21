@@ -70,12 +70,21 @@
                         sessionStorage.EMAIL_USUARIO = json.email;
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.ID_USUARIO = json.id;
+                        sessionStorage.TEM_PET = json.tem_pet;
+
+                        console.log(resposta)
 
                         mensagem.innerHTML = `<span style="color:green;">Login realizado com sucesso! Redirecionando...</span>`;
 
                         setTimeout(function () {
                             window.location = "index.html";
                         }, 1000);
+
+                        if (dados.tem_pet == 1) {
+                            window.location.href = "./dashboardPet.html";
+                        } else {
+                            window.location.href = "./dashboardSemPet.html";
+                        }
                     });
                 } else {
                     mensagem.innerHTML = `<span style="color:red;">Email e/ou senha inválidos!</span>`;

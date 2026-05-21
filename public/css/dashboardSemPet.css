@@ -1,0 +1,205 @@
+/* dashboardSemPet.css */
+
+:root {
+    --rosa-forte: #e3669c;
+    --rosa-suave: #ffe4ef;
+    --rosa-leve:  #fff2f7;
+    --rosa-medio: #f5c0d8;
+    --amarelo:    #f9d473;
+    --amarelo-suave: #fff9e6;
+    --marrom: #58463e;
+    --texto:  #4a4a4a;
+    --branco: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--texto);
+    background-color: var(--rosa-leve);
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+.header {
+    background-color: var(--branco);
+    height: 90px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--texto);
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+.navbar a:hover { color: var(--rosa-forte); }
+.navbar li.agora a,
+.navbar li a.ativo {
+    background-color: var(--rosa-suave);
+    padding: 6px 18px;
+    border-radius: 20px;
+}
+
+/* ── Layout principal ── */
+.dsp-container {
+    width: 90%;
+    margin: 24px auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card base */
+.dsp-card {
+    background-color: var(--branco);
+    border-radius: 20px;
+    padding: 22px 26px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+/* ── LINHA 1: KPIs + pizza ── */
+.dsp-kpis {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.6fr;
+    grid-template-areas:
+        "rosa amarelo pizza"
+        "frase frase pizza";
+    gap: 20px;
+    align-items: start;
+}
+
+/* KPI rosa */
+.kpi-rosa {
+    background-color: #f8a6ce;
+    max-height: 200px;
+    grid-area: rosa;
+}
+
+.kpi-amarelo {
+    background-color: var(--amarelo);
+    max-height: 200px;
+    grid-area: amarelo;
+}
+
+.frase-card {
+    grid-area: frase;
+
+    background-color: #d8a9ef;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    min-height: 130px;
+    padding: 24px;
+}
+
+.frase-card h2 {
+    font-size: 30px;
+    font-style: italic;
+    margin-bottom: 10px;
+    color: var(--marrom);
+}
+
+.frase-card p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--marrom);
+}
+
+.pizza-card {
+    grid-area: pizza;
+}
+
+.dsp-card h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--marrom);
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.kpi-sub {
+    font-size: 12px;
+    color: var(--marrom);
+    opacity: 0.75;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.dsp-card span {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--marrom);
+    display: block;
+}
+
+/* Pizza */
+.pizza-card {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.pizza-titulo {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.pizza-wrap {
+    flex: 1;
+    position: relative;
+    min-height: 180px;
+}
+
+/* ── LINHA 2: linhas + texto ── */
+.dsp-linha2 {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.linhas-card {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.linhas-titulo {
+    text-align: center;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.linhas-card canvas {
+    flex: 1;
+    min-height: 0;
+    max-height: 100%;
+}
+
+/* Texto / citação */
+.texto-card {
+    display: flex;
+    align-items: center;
+    background-color: #fffde8;
+    border-left: 4px solid var(--amarelo);
+}
+
+.texto-citacao {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--marrom);
+    font-style: italic;
+}

@@ -55,12 +55,6 @@ body {
     width: 130px;
 }
 
-.titulo {
-    color: var(--marrom);
-    font-weight: 800;
-    font-size: 22px;
-    margin: 0;
-}
 
 /* Navbar */
 .navbar {
@@ -91,12 +85,6 @@ body {
     color: var(--texto);
     padding: 6px 18px;
     border-radius: 20px;
-}
-
-/* Separador | */
-.navbar li.separador {
-    color: #ccc;
-    font-weight: 300;
 }
 
 /* Separador | */
@@ -381,45 +369,47 @@ body {
 }
 
 /* Patinhas de votação */
-.patinhas-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.patinha-label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    gap: 8px;
-}
-
+/* Esconde o círculo padrão do rádio, mas mantém ele funcional */
 .patinha-label input[type="radio"] {
     display: none;
+    flex-direction: column; /* Ícone em cima, número embaixo */
+    align-items: center;
+}
+.patinhas-container {
+    display: flex;         /* Coloca os itens lado a lado */
+    justify-content: center; /* Centraliza o grupo no meio da tela */
+    align-items: center;     /* Alinha verticalmente */
+    gap: 30px;              /* Espaçamento entre cada patinha */
+    margin: 20px 0;         /* Espaço em cima e embaixo do grupo */
 }
 
+/* Estilo padrão da patinha (não selecionada) */
 .patinha-icone {
-    font-size: 40px;
-    opacity: 0.5;
-    transition: opacity 0.2s, transform 0.2s;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    display: block;
+    color: #ccc; /* Cor cinza quando não selecionada */
 }
 
-.patinha-label input[type="radio"]:checked + .patinha-icone {
-    opacity: 1;
-    transform: scale(1.2);
-}
-
+/* Efeito de Hover: aumenta um pouco quando passa o mouse */
 .patinha-label:hover .patinha-icone {
-    opacity: 0.85;
-    transform: scale(1.1);
+    transform: scale(1.2);
+    color: var(--rosa-forte); /* Usa a variável que você já tem */
 }
 
+/* O PULO DO GATO: Estilo quando o rádio está selecionado */
+.patinha-label input[type="radio"]:checked + .patinha-icone {
+    color: var(--rosa-forte); /* Fica rosa */
+    transform: scale(1.6);     /* Fica um pouco maior */
+    filter: drop-shadow(0px 0px 5px rgba(207, 79, 136, 0.5)); /* Brilho suave */
+}
+
+/* Estilo do número embaixo da patinha */
 .patinha-num {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--texto);
+    display: block;
+    font-weight: bold;
+    color: #5D4037; /* Marrom para combinar com o menu */
 }
 
 /* ===== BOTÃO ENVIAR (geral) ===== */
@@ -439,6 +429,13 @@ body {
 .btn-enviar:hover {
     background-color: #cf4f88;
     transform: scale(1.03);
+}
+
+.feedback-msg {
+    margin-top: 15px;
+    font-weight: 600;
+    height: 20px; /* Reserva o espaço para não "pular" o layout */
+    text-align: center;
 }
 
 /* ===== ADOÇÃO ===== */
@@ -505,53 +502,108 @@ body {
     object-fit: cover;
 }
 
-/* Box pesquisa (Qual sua relação com adoção) */
-.box-pesquisa {
-    background-color: var(--amarelo-suave);
-    border: 4px solid #d4c4cc;
+/* FORMULÁRIO DE ADOÇÃO */
+/* Container principal do formulário de adoção */
+.fundo-destaque {
+    background-color: #fffadc; /* Amarelo bem suave/creme */
+    padding: 60px 0;           /* Espaçamento para o conteúdo não grudar nas bordas */
+    width: 100%;               /* Garante que o fundo ocupe a largura toda */
+    border-bottom: 1px solid #F0F0F0; /* Linha sutil para separar da próxima seção */
+}
+
+/* Opcional: Se quiser que o card rosa interno continue branco para "saltar" do fundo amarelo */
+.adocao-container {
+    background-color: #ffe3e3; 
     border-radius: 30px;
-    padding: 40px 60px;
-    width: 100%;
-    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03); /* Sombra bem leve */
+}
+.adocao-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.box-pesquisa h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--marrom);
-    margin-bottom: 25px;
-}
-
-.opcoes-pesquisa {
+/* Coluna da esquerda (Opções) */
+.adocao-opcoes {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: fit-content;
-    margin: 0 auto 25px;
-    gap: 14px;
+    gap: 15px;
 }
 
-.opcoes-pesquisa label {
+/* Estilização dos "Cards" de opção */
+.opcao-card {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 15px;
+    background-color: #ffffff; /* Fundo branco para destacar no card rosa */
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 15px;
     cursor: pointer;
-    background-color: var(--rosa-suave);
-    padding: 10px 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.opcao-card:hover {
+    border-color: #ff6699; /* Cor rosa do seu tema */
+    transform: translateX(5px);
+}
+
+/* Quando o rádio estiver marcado, o card muda */
+.opcao-card input[type="radio"]:checked + .card-conteudo {
+    font-weight: bold;
+    color: #ff6699;
+}
+
+/* Esconde o rádio padrão, igual fizemos nas patinhas */
+.opcao-card input[type="radio"] {
+    margin-right: 15px;
+    accent-color: #ff6699; /* Cor da bolinha se decidir deixar visível */
+}
+
+/* Coluna da direita (Informativo) */
+.adocao-info {
+    flex: 1;
+    background-color: #fff5f8; /* Rosa bem clarinho */
     border-radius: 20px;
-    width: 360px;
-    transition: background-color 0.2s;
+    padding: 30px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px dashed #ffb3cc;
 }
 
-.opcoes-pesquisa label:hover {
-    background-color: var(--rosa-medio);
+.info-texto {
+    font-size: 1.1rem;
+    color: #bc0087;
+    line-height: 1.6;
+    animation: fadeIn 0.5s ease-in;
 }
 
-.opcoes-pesquisa input[type="radio"] {
-    accent-color: var(--rosa-forte);
-    width: 16px;
-    height: 16px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Ajustando a imagem dentro do painel de informações */
+.adocao-info img {
+    max-width: 380px;    /* Define a largura máxima (ajuste conforme o gosto) */
+    height: auto;        /* Mantém a proporção da foto sem achatar */
+    margin-bottom: 15px; /* Espaço entre a foto e o texto */
+    border: 1px solid #ffb3cc; /* Uma bordinha rosa para dar um charme */
+}
+
+/* Container do texto e imagem para ficarem centralizados */
+.info-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ===== FOOTER ===== */

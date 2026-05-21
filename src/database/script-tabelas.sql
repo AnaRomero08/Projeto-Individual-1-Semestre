@@ -6,54 +6,59 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+CREATE DATABASE blogcats;
+USE blogcats;
 
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+-- Tabela de Usuários
+CREATE TABLE usuarios (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    tem_pet TINYINT
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+-- Tabela de Pets (Relacionada ao Usuário)
+CREATE TABLE pets (
+    id_pet INT PRIMARY KEY AUTO_INCREMENT,
+    fk_usuario INT UNIQUE,
+    nome_pet VARCHAR(50),
+    idade INT,
+    peso DECIMAL(4,2), -- Ex: 04.50 kg
+    dias_companheirismo INT, -- Valor vindo do seu formulário
+    FOREIGN KEY (fk_usuario) REFERENCES usuarios(id_usuario)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
+CREATE TABLE formulario (
+    id_formulario INT PRIMARY KEY AUTO_INCREMENT,
+    tipo_formulario VARCHAR(50) -- 'felicidade' ou 'adocao'
+);
+
+CREATE TABLE resposta (
+	data_envio DATETIME DEFAULT CURRENT_TIMESTAMP,
+	valor_resposta VARCHAR(100),
 	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+    fk_formulario INT,
+    FOREIGN KEY (fk_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (fk_formulario) REFERENCES formulario(id_formulario)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE comentario (
+	id_comentario INT PRIMARY KEY AUTO_INCREMENT,
+    texto VARCHAR(400),
+    data_comentario DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fk_usuario INT,
+    FOREIGN KEY (fk_usuario) REFERENCES usuarios(id_usuario)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+CREATE TABLE historico_pet (
+    id_historico INT PRIMARY KEY AUTO_INCREMENT,
+    peso DECIMAL(4,2),       -- Permite valores como 4.50 ou 5.25
+    idade DECIMAL(3,1),      -- Permite valores como 0.5 (meses) ou 2.0 (anos)
+    data_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fk_usuario INT,
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(id_usuario)
 );
 
 insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
